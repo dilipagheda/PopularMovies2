@@ -3,11 +3,18 @@ package com.example.android.popularmovies2.database;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.databinding.BindingAdapter;
 import android.support.annotation.NonNull;
+import android.widget.ImageView;
+
+import com.example.android.popularmovies2.R;
+import com.squareup.picasso.Picasso;
 
 @Entity(tableName = "favorite_movies")
 
 public class Movie {
+
+    //private static final String BASE_URL_FOR_IMAGE="http://image.tmdb.org/t/p/w185";
 
     @NonNull
     @PrimaryKey
@@ -90,6 +97,17 @@ public class Movie {
         }else{
             return false;
         }
+    }
+//
+//    public String getAbsolutePosterPath() {
+//        return BASE_URL_FOR_IMAGE+imageURL;
+//    }
+
+    @BindingAdapter({"bind:imageUrl"})
+    public static void loadImage(ImageView view, String imageUrl) {
+        Picasso.with(view.getContext())
+                .load(imageUrl)
+                .into(view);
     }
 }
 

@@ -1,22 +1,29 @@
 package com.example.android.popularmovies2.adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.android.popularmovies2.R;
+import com.example.android.popularmovies2.database.Movie;
+import com.example.android.popularmovies2.model.Helper;
+import com.example.android.popularmovies2.model.MovieDetailsParcelable;
+import com.example.android.popularmovies2.repository.LoadTypes;
 import com.example.android.popularmovies2.service.Result;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder> {
 
-    private ArrayList<Result> mDataset;
+    private ArrayList<Movie> mDataset;
     private ItemClickListener clickListener;
-
-    public void setData(ArrayList<Result> mDataset){
+    private Context context;
+    public void setData(ArrayList<Movie> mDataset){
         this.mDataset = mDataset;
     }
 
@@ -25,10 +32,11 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesView
     public MoviesAdapter.MoviesViewHolder onCreateViewHolder(ViewGroup parent,
                                                      int viewType) {
         // create a new view
-        TextView v = (TextView) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.my_text_view, parent, false);
+        ImageView v = (ImageView) LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.movie_image_item, parent, false);
 
         MoviesViewHolder vh = new MoviesViewHolder(v);
+        context = parent.getContext();
         return vh;
     }
 
@@ -37,7 +45,11 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesView
     public void onBindViewHolder(MoviesViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        holder.textView.setText(mDataset.get(position).getTitle());
+
+
+        Picasso.with(context)
+                .load(mDataset.get(position).getImageURL())
+                .into(holder.imageView);
 
     }
 
@@ -50,11 +62,11 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesView
     }
 
     public class MoviesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public TextView textView;
-        public MoviesViewHolder(TextView itemView) {
+        public ImageView imageView;
+        public MoviesViewHolder(ImageView itemView) {
             super(itemView);
-            textView = itemView;
-            textView.setOnClickListener(this);
+            imageView = itemView;
+            imageView.setOnClickListener(this);
         }
 
         @Override
@@ -67,4 +79,26 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesView
         this.clickListener = itemClickListener;
     }
 
+    public void clearData(){
+        if(mDataset!=null)
+         mDataset.clear();
+    }
+
+    public MovieDetailsParcelable getMovieDetailsParcelableAt(int position) {
+
+        MovieDetailsParcelable movieDetailsParcelable = null;
+        Movie m = mDataset.get(position);
+        int id = m.getId();
+        String title = m.getTitle();
+        String imageURL = m.getImageURL();
+        String plot = m.getPlot();
+        String rating = String.valueOf(m.getRating());
+        String releaseDate = m.getReleaseDate();
+
+
+        movieDetailsParcelable = new MovieDetailsParcelable(id, title, releaseDate, rating, plot, imageURL);
+
+
+        return movieDetailsParcelable;
+    }
 }

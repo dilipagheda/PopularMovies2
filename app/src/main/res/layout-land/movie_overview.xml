@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+    <data>
+        <variable
+            name="movie"
+            type="com.example.android.popularmovies2.database.Movie" />
+    </data>
+    <ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="8dp">
+
+
+        <TextView
+            android:id="@+id/shareLabel"
+            android:layout_width="47dp"
+            android:layout_height="17dp"
+            android:layout_below="@id/release_date"
+            android:layout_marginTop="8dp"
+            android:layout_toRightOf="@+id/image"
+            android:text="Share"
+            android:textAlignment="center"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@+id/favoriteButton"
+            app:layout_constraintTop_toBottomOf="@+id/favoriteButton" />
+
+        <TextView
+            android:id="@+id/favoriteLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/release_date"
+            android:layout_toRightOf="@+id/image"
+            android:text="Favorite?"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="@+id/title"
+            app:layout_constraintTop_toTopOf="@+id/plot" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="0dp"
+            android:layout_height="82dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:background="@android:color/darker_gray"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/image"
+            app:layout_constraintTop_toTopOf="@+id/image"
+            android:text="@{movie.getTitle()}"
+            tools:text="Avenasasaasgers" />
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="185dp"
+            android:layout_height="256dp"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/title"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:imageUrl="@{movie.getImageURL()}"
+
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/release_dateLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="17dp"
+            android:layout_below="@+id/title"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_toRightOf="@+id/image"
+            android:text="@string/movie_detail_release_date_label"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/image" />
+
+        <TextView
+            android:id="@+id/release_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/release_dateLabel"
+
+            android:layout_marginTop="4dp"
+            android:layout_toRightOf="@+id/image"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@+id/release_dateLabel"
+            app:layout_constraintTop_toBottomOf="@+id/release_dateLabel"
+            android:text="@{movie.getReleaseDate()}"
+
+            tools:text="2018-1-1" />
+
+        <TextView
+            android:id="@+id/VoteLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/release_date"
+            android:layout_marginStart="32dp"
+            android:layout_toRightOf="@+id/image"
+            android:text="@string/movie_detail_vote_label"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@+id/release_dateLabel"
+            app:layout_constraintTop_toTopOf="@+id/release_dateLabel" />
+
+        <TextView
+            android:id="@+id/vote"
+            android:layout_width="53dp"
+            android:layout_height="27dp"
+            android:layout_below="@+id/VoteLabel"
+            android:layout_marginTop="4dp"
+            android:layout_toRightOf="@+id/image"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@+id/VoteLabel"
+            app:layout_constraintTop_toBottomOf="@+id/VoteLabel"
+            android:text="@{movie.getRating()}"
+
+            tools:text="5.5" />
+
+
+        <ImageButton
+            android:id="@+id/favoriteButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/vote"
+            android:layout_marginTop="8dp"
+            android:layout_toRightOf="@+id/image"
+            android:background="@android:color/white"
+            android:scaleType="centerCrop"
+            app:layout_constraintStart_toStartOf="@+id/favoriteLabel"
+            app:layout_constraintTop_toBottomOf="@+id/favoriteLabel"
+            app:srcCompat="@drawable/ic_star_border_black_24dp" />
+
+        <TextView
+            android:id="@+id/plot"
+            android:layout_width="0dp"
+            android:layout_height="226dp"
+            android:layout_below="@+id/image"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/favoriteLabel"
+            app:layout_constraintStart_toEndOf="@+id/image"
+            android:text="@{movie.getPlot()}"
+
+            app:layout_constraintTop_toBottomOf="@+id/title" />
+
+        <ImageView
+            android:id="@+id/shareButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="@+id/shareLabel"
+            app:layout_constraintTop_toBottomOf="@+id/shareLabel"
+            app:srcCompat="@drawable/ic_share_black_24dp" />
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>
+</layout>

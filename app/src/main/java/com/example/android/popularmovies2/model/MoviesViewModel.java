@@ -5,10 +5,15 @@ import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.support.annotation.NonNull;
 
+import com.example.android.popularmovies2.database.Movie;
+import com.example.android.popularmovies2.repository.LoadTypes;
+import com.example.android.popularmovies2.repository.MovieDetailsRepository;
 import com.example.android.popularmovies2.repository.MoviesRepository;
+import com.example.android.popularmovies2.repository.StatusCodes;
 import com.example.android.popularmovies2.service.Result;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MoviesViewModel extends AndroidViewModel{
 
@@ -23,12 +28,26 @@ public class MoviesViewModel extends AndroidViewModel{
         return moviesRepository.getLiveDataObject();
     }
 
-    public void loadData(){
-        moviesRepository.loadData();
+    public LiveData<StatusCodes> loadData(){
+        return moviesRepository.loadData();
     }
 
-    public MovieDetailsParcelable getMovieDetailsParcelableAt(int position){
+    public void notifyPreferenceChanged(LoadTypes loadType){
+        moviesRepository.preferenceChanged(loadType);
 
-        return moviesRepository.getMovieDetailsParcelableAt(position);
+    }
+
+    //database stuff
+    public LiveData<List<Movie>> getFavoriteMovies() {
+        return moviesRepository.getFavoritesMovies();
+    }
+
+    public void setCurrentPreference(LoadTypes loadType){
+        moviesRepository.setCurrentPreference(loadType);
+    }
+
+    //expose the method to set data fetch status here as for database, activity can identify empty status through observers
+    public void setStatusCode(StatusCodes statusCode){
+        moviesRepository.setStatusCode(statusCode);
     }
 }

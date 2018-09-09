@@ -8,7 +8,12 @@ import android.util.Log;
 
 import com.example.android.popularmovies2.database.Movie;
 import com.example.android.popularmovies2.repository.MovieDetailsRepository;
+import com.example.android.popularmovies2.repository.StatusCodes;
+import com.example.android.popularmovies2.service.Result;
+import com.example.android.popularmovies2.service.Review;
+import com.example.android.popularmovies2.service.Trailer;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MovieDetailsViewModel extends AndroidViewModel {
@@ -21,6 +26,7 @@ public class MovieDetailsViewModel extends AndroidViewModel {
     public MovieDetailsViewModel(@NonNull Application application) {
         super(application);
         this.application = application;
+        movieDetailsRepository = new MovieDetailsRepository(application);
         Log.d(TAG,"Constructor");
     }
 
@@ -31,10 +37,27 @@ public class MovieDetailsViewModel extends AndroidViewModel {
 
         }
         favoriteMovies = movieDetailsRepository.getFavoritesMovies();
-
         return favoriteMovies;
     }
 
+    //Below load methods are there to cause first or subsequent load of given data
+    //Once it fetches data, it will load it in the LiveData object.
+    public LiveData<StatusCodes> loadReviews(int id){
+         return movieDetailsRepository.loadReviews(id);
+    }
+
+    public LiveData<StatusCodes> loadTrailers(int id){
+         return movieDetailsRepository.loadTrailers(id);
+    }
+
+    //Below get methods will simply return reference to LiveData object. It will not cause any data load.
+    public LiveData<ArrayList<Review>> getReviews(){
+        return movieDetailsRepository.getReviews();
+    }
+
+    public LiveData<ArrayList<Trailer>> getTrailers(){ return movieDetailsRepository.getTrailers(); }
+
+    //Below methods are database related.
     public void insertFavoriteMovie(Movie m){
         movieDetailsRepository.insertNewFavoriteMovie(m);
     }
