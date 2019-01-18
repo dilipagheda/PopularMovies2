@@ -1,4 +1,4 @@
-# PopularMovies - Stage 2
+# PopularMovies - Android App - Stage 2
 
 Popular Movies app - Stage 2 - As part of Udacity Android nanodegree assignment.
 
