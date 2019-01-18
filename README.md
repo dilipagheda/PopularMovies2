@@ -5,10 +5,10 @@ Popular Movies app - Stage 2 - As part of Udacity Android nanodegree assignment.
 This app uses service - http://api.themoviedb.org/3/movie/popular to fetch most popular / highest rated movies and display to the user.
 user can change sort order from settings menu
 
-###API KEY
+# API KEY
 Please put your api key in gradle.properties file as below:
 
-MOVIES_API_KEY = "<your key>"
+`MOVIES_API_KEY = "<your key>"`
 
 
 
@@ -57,7 +57,7 @@ Movie Details layout contains a section for displaying trailer videos and user r
 
 
 
-###User Interface - Function
+### User Interface - Function
    
 
 
@@ -71,7 +71,7 @@ In the movies detail screen, a user can tap a button (for example, a star) to ma
 
 
 
-###Network API Implementation
+### Network API Implementation
    
 
 
