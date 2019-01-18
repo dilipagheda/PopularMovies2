@@ -42,7 +42,7 @@ Verify on roation, app doesn't crash and state is preserved.
 
 # Project specifications:
 
-###User Interface - Layout
+### User Interface - Layout
    
 
 UI contains an element (e.g., a spinner or settings menu) to toggle the sort order of the movies by: most popular, highest rated.
@@ -100,7 +100,7 @@ Database is not re-queried unnecessarily. LiveData is used to observe changes in
 
 Database is not re-queried unnecessarily after rotation. Cached LiveData from ViewModel is used instead.
 
-###Bonus features
+### Bonus features
 Extend the favorites database to store the movie poster, synopsis, user rating, and release date, and display them even when offline.
 
 Implement sharing functionality to allow the user to share the first trailer’s YouTube URL from the movie details screen.
